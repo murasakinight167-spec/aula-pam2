@@ -108,6 +108,7 @@ object FrmIuUsuario: TFrmIuUsuario
         TabOrder = 0
         Text = 'Gravar'
         TextSettings.Trimming = None
+        OnClick = BtnGravarClick
       end
     end
   end

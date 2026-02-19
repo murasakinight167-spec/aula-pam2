@@ -18,6 +18,7 @@ type
     EdtLogin: TEdit;
     EdtSenha: TEdit;
     BtnGravar: TButton;
+    procedure BtnGravarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -34,5 +35,25 @@ implementation
 {$R *.fmx}
 
 uses Umodulo;
+
+procedure TFrmIuUsuario.BtnGravarClick(Sender: TObject);
+begin
+
+  with datamodule1.FDQUsuarios do
+  begin
+  close;
+  sql.clear;
+  sql.add('inset into usuarios (usunome, usulogin, ususenha) values (:usunome,:usulogin,:ususenha);');
+
+  parambyname('usunome').value:=EdtNome.text;
+  parambyname('usulogin').value:=EdtLogin.text;
+  parambyname('ususenha').value:=EdtSenha.text;
+
+  ExecSQL;
+
+  end;
+
+
+end;
 
 end.
