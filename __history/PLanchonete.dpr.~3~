@@ -1,0 +1,18 @@
+program PLanchonete;
+
+uses
+  System.StartUpCopy,
+  FMX.Forms,
+  UAcesso in 'UAcesso.pas' {Frmacesso},
+  UModulo in 'delphi\UModulo.pas' {dm: TDataModule},
+  IuUsuario in 'delphi\IuUsuario.pas' {FrmIuUsuario};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.CreateForm(TFrmIuUsuario, FrmIuUsuario);
+  Application.CreateForm(TFrmacesso, Frmacesso);
+  Application.CreateForm(Tdm, dm);
+  Application.Run;
+end.

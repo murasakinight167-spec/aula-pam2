@@ -1,0 +1,87 @@
+unit IuUsuario;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes,
+  System.Variants,
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.StdCtrls,
+  FMX.Controls.Presentation, FMX.Edit, FMX.Layouts;
+
+type
+  TFrmIuUsuario = class(TForm)
+    Layout1: TLayout;
+    Layout2: TLayout;
+    Layout3: TLayout;
+    Layout4: TLayout;
+    Layout5: TLayout;
+    EdtNome: TEdit;
+    EdtLogin: TEdit;
+    EdtSenha: TEdit;
+    BtnGravar: TButton;
+    procedure BtnGravarClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    usuid: integer;
+    usulogado: boolean;
+  end;
+
+var
+  FrmIuUsuario: TFrmIuUsuario;
+
+implementation
+
+{$R *.fmx}
+
+uses Umodulo;
+
+procedure TFrmIuUsuario.BtnGravarClick(Sender: TObject);
+begin
+
+  with dm.FDQUsuarios do
+  begin
+    close;
+    sql.clear;
+
+    if usuid = 0 then
+    begin
+      sql.add('inset into usuarios (usunome, usulogin, ususenha) values (:usunome,:usulogin,:ususenha);');
+
+    end
+
+    else
+      sql.add('update usuarios set usunome = :usunome, usulogin = :usologin, ususenha = :ususenha where usuid = :usuid;');
+    parambyname('usuid').value := usuid;
+    begin
+
+    end;
+    parambyname('usunome').value := EdtNome.text;
+    parambyname('usulogin').value := EdtLogin.text;
+    parambyname('ususenha').value := EdtSenha.text;
+
+    ExecSQL;
+
+  end;
+
+end;
+
+procedure TFrmIuUsuario.FormShow(Sender: TObject);
+begin
+  usuid := 1;
+  with dm.FDQUsuarios do
+  begin
+    close;
+    sql.clear;
+    sql.add('select * from usuarios where usuid = :usuid');
+    parambyname('usuid').value := usuid;
+    open;
+  end;
+  EdtNome.text := dm.FDQUsuariosusunome.AsString;
+  EdtLogin.text := dm.FDQUsuariosusulogin.AsString;
+  EdtSenha.text := dm.FDQUsuariosususenha.AsString;
+end;
+
+end.

@@ -3,7 +3,8 @@ unit IuUsuario;
 interface
 
 uses
-  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+  System.SysUtils, System.Types, System.UITypes, System.Classes,
+  System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.StdCtrls,
   FMX.Controls.Presentation, FMX.Edit, FMX.Layouts;
 
@@ -19,12 +20,13 @@ type
     EdtSenha: TEdit;
     BtnGravar: TButton;
     procedure BtnGravarClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
     { Public declarations }
-    usuid:integer;
-    usulogado:boolean;
+    usuid: integer;
+    usulogado: boolean;
   end;
 
 var
@@ -39,21 +41,47 @@ uses Umodulo;
 procedure TFrmIuUsuario.BtnGravarClick(Sender: TObject);
 begin
 
-  with datamodule1.FDQUsuarios do
+  with dm.FDQUsuarios do
   begin
-  close;
-  sql.clear;
-  sql.add('inset into usuarios (usunome, usulogin, ususenha) values (:usunome,:usulogin,:ususenha);');
+    close;
+    sql.clear;
 
-  parambyname('usunome').value:=EdtNome.text;
-  parambyname('usulogin').value:=EdtLogin.text;
-  parambyname('ususenha').value:=EdtSenha.text;
+    if usuid = 0 then
+    begin
+      sql.add('insert into usuarios (usunome, usulogin, ususenha) values (:usunome,:usulogin,:ususenha);');
 
-  ExecSQL;
+    end
+
+    else
+
+    begin
+        sql.add('update usuarios set usunome = :usunome, usulogin = :usologin, ususenha = :ususenha where usuid = :usuid;');
+    parambyname('usuid').value := usuid;
+    end;
+    parambyname('usunome').value := EdtNome.text;
+    parambyname('usulogin').value := EdtLogin.text;
+    parambyname('ususenha').value := EdtSenha.text;
+
+    ExecSQL;
 
   end;
 
+end;
 
+procedure TFrmIuUsuario.FormShow(Sender: TObject);
+begin
+  usuid := 0;
+  with dm.FDQUsuarios do
+  begin
+    close;
+    sql.clear;
+    sql.add('select * from usuarios where usuid = :usuid');
+    parambyname('usuid').value := usuid;
+    open;
+  end;
+  EdtNome.text := dm.FDQUsuariosusunome.AsString;
+  EdtLogin.text := dm.FDQUsuariosusulogin.AsString;
+  EdtSenha.text := dm.FDQUsuariosususenha.AsString;
 end;
 
 end.

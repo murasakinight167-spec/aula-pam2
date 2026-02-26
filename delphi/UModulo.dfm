@@ -1,10 +1,11 @@
-﻿object DataModule1: TDataModule1
+﻿object dm: Tdm
   Height = 480
   Width = 640
   object FDConexão: TFDConnection
     Params.Strings = (
-      'Database=D:\Aplicativo Mobile Git\aula-pam2\lanchonete_pam.db'
+      'Database=C:\Users\Aluno\Downloads\aula-pam2\lanchonete_pam.db'
       'User_Name=root'
+      'LockingMode=Normal'
       'DriverID=SQLite')
     LoginPrompt = False
     Left = 288

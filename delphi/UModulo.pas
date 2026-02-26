@@ -12,7 +12,7 @@ uses
   FireDAC.Comp.Client;
 
 type
-  TDataModule1 = class(TDataModule)
+  Tdm = class(TDataModule)
     FDConexão: TFDConnection;
     FDQUsuarios: TFDQuery;
     FDQUsuariosusuid: TFDAutoIncField;
@@ -27,7 +27,7 @@ type
   end;
 
 var
-  DataModule1: TDataModule1;
+  dm: Tdm;
 
 implementation
 
