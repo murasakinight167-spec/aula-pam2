@@ -9,21 +9,17 @@ uses
   FireDAC.Phys.SQLiteDef, FireDAC.Stan.ExprFuncs,
   FireDAC.Phys.SQLiteWrapper.Stat, FireDAC.FMXUI.Wait, FireDAC.Stan.Param,
   FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet,
-  FireDAC.Comp.Client, REST.Types, REST.Response.Adapter, REST.Client,
-  Data.Bind.Components, Data.Bind.ObjectScope;
+  FireDAC.Comp.Client;
 
 type
   Tdm = class(TDataModule)
-    RESTClient1: TRESTClient;
-    RESTRequest1: TRESTRequest;
-    RESTResponse1: TRESTResponse;
-    RRDSAUsuarios: TRESTResponseDataSetAdapter;
-    usuarios: TFDMemTable;
-    usuariosid: TIntegerField;
-    usuariosusunome: TStringField;
-    usuariosusulogin: TStringField;
-    usuariosususenha: TStringField;
-    usuariosusulogado: TBooleanField;
+    FDConexão: TFDConnection;
+    FDQUsuarios: TFDQuery;
+    FDQUsuariosusuid: TFDAutoIncField;
+    FDQUsuariosusunome: TWideMemoField;
+    FDQUsuariosusulogin: TWideMemoField;
+    FDQUsuariosususenha: TWideMemoField;
+    FDQUsuariosusulogado: TBooleanField;
   private
     { Private declarations }
   public

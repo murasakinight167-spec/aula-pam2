@@ -1,46 +1,61 @@
-﻿object dm: Tdm
+object dm: Tdm
   Height = 480
   Width = 640
-  object FDConexão: TFDConnection
-    Params.Strings = (
-      'Database=C:\Users\Aluno\Downloads\aula-pam2\lanchonete_pam.db'
-      'User_Name=root'
-      'LockingMode=Normal'
-      'DriverID=SQLite')
-    LoginPrompt = False
-    Left = 288
-    Top = 24
+  object RESTClient1: TRESTClient
+    Accept = 'application/json, text/plain; q=0.9, text/html;q=0.8,'
+    AcceptEncoding = 'b'
+    BaseURL = 'http://localhost/Aula-Pweb/api/iusuario.php'
+    Params = <>
+    SynchronizedEvents = False
+    Left = 184
+    Top = 32
   end
-  object FDQUsuarios: TFDQuery
-    Connection = FDConexão
-    SQL.Strings = (
-      'select * from usuarios;')
-    Left = 40
-    Top = 184
-    object FDQUsuariosusuid: TFDAutoIncField
-      FieldName = 'usuid'
-      Origin = 'usuid'
-      ProviderFlags = [pfInWhere, pfInKey]
-      ReadOnly = False
+  object RESTRequest1: TRESTRequest
+    Client = RESTClient1
+    Params = <>
+    Response = RESTResponse1
+    SynchronizedEvents = False
+    Left = 184
+    Top = 96
+  end
+  object RESTResponse1: TRESTResponse
+    Left = 184
+    Top = 168
+  end
+  object RRDSAUsuarios: TRESTResponseDataSetAdapter
+    Dataset = usuarios
+    FieldDefs = <>
+    ResponseJSON = RESTResponse1
+    Left = 184
+    Top = 248
+  end
+  object usuarios: TFDMemTable
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
+    UpdateOptions.CheckRequired = False
+    UpdateOptions.AutoCommitUpdates = True
+    Left = 192
+    Top = 328
+    object usuariosid: TIntegerField
+      FieldName = 'id'
     end
-    object FDQUsuariosusunome: TWideMemoField
+    object usuariosusunome: TStringField
       FieldName = 'usunome'
-      Origin = 'usunome'
-      BlobType = ftWideMemo
+      Size = 100
     end
-    object FDQUsuariosusulogin: TWideMemoField
+    object usuariosusulogin: TStringField
       FieldName = 'usulogin'
-      Origin = 'usulogin'
-      BlobType = ftWideMemo
+      Size = 100
     end
-    object FDQUsuariosususenha: TWideMemoField
+    object usuariosususenha: TStringField
       FieldName = 'ususenha'
-      Origin = 'ususenha'
-      BlobType = ftWideMemo
+      Size = 100
     end
-    object FDQUsuariosusulogado: TBooleanField
+    object usuariosusulogado: TBooleanField
       FieldName = 'usulogado'
-      Origin = 'usulogado'
     end
   end
 end

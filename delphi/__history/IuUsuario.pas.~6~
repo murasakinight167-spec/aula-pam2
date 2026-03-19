@@ -40,7 +40,7 @@ uses Umodulo;
 
 procedure TFrmIuUsuario.BtnGravarClick(Sender: TObject);
 begin
- {
+
   with dm.FDQUsuarios do
   begin
     close;
@@ -65,12 +65,11 @@ begin
     ExecSQL;
 
   end;
- }
+
 end;
 
 procedure TFrmIuUsuario.FormShow(Sender: TObject);
 begin
-  {
   usuid := 0;
   with dm.FDQUsuarios do
   begin
@@ -83,6 +82,6 @@ begin
   EdtNome.text := dm.FDQUsuariosusunome.AsString;
   EdtLogin.text := dm.FDQUsuariosusulogin.AsString;
   EdtSenha.text := dm.FDQUsuariosususenha.AsString;
-  }
-  end;
+end;
+
 end.
