@@ -3,8 +3,9 @@ object dm: Tdm
   Width = 640
   object RESTClient1: TRESTClient
     Accept = 'application/json, text/plain; q=0.9, text/html;q=0.8,'
+    AcceptCharset = 'utf-8, *;q=0.8'
     AcceptEncoding = 'b'
-    BaseURL = 'http://localhost/Aula-Pweb/api/iusuario.php'
+    BaseURL = 'http://127.0.0.1/Aula-Pweb/api'
     Params = <>
     SynchronizedEvents = False
     Left = 184
@@ -19,6 +20,7 @@ object dm: Tdm
     Top = 96
   end
   object RESTResponse1: TRESTResponse
+    ContentType = 'text/html'
     Left = 184
     Top = 168
   end
@@ -37,7 +39,7 @@ object dm: Tdm
     UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
     UpdateOptions.CheckRequired = False
     UpdateOptions.AutoCommitUpdates = True
-    Left = 192
+    Left = 184
     Top = 328
     object usuariosid: TIntegerField
       FieldName = 'id'

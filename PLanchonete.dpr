@@ -11,8 +11,8 @@ uses
 
 begin
   Application.Initialize;
+  Application.CreateForm(TFrmListaUsuarios, FrmListaUsuarios);
   Application.CreateForm(TFrmIuUsuario, FrmIuUsuario);
   Application.CreateForm(Tdm, dm);
-  Application.CreateForm(TFrmListaUsuarios, FrmListaUsuarios);
   Application.Run;
 end.
